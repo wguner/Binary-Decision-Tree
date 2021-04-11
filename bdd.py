@@ -4,10 +4,6 @@ from functools import reduce
 from math import sqrt
 from itertools import count, islice
 
-def is_prime(n):
-    return n>2 and all( n% i for i in islice(count(2), int(sqrt(n)-1)))
-
-
 def create_node(num):
 	# Converts a number into binary then to an array of 5 bits
     binary = ('{0:05b}'.format(num))
@@ -32,6 +28,8 @@ def create_bool_express(name, inputArr):
     logic_exp = bddvars(name, 5) 
     logic_exp = [var if n else ~var for var, n in zip(logic_exp, inputArr)]# var return a unique var instance
     return reduce(lambda x, y: x & y, logic_exp) # returns expression not diagram
+
+# 3.1 
 
 def bdd():
     # creating a bdd tree to match the requirements given in the assignment
@@ -59,6 +57,9 @@ def bdd_even():
 				    n = 1
     return expr2bdd(f)
 
+def is_prime(n):
+    return n>2 and all( n% i for i in islice(count(2), int(sqrt(n)-1)))
+
 def bdd_prime():
     # creating a bdd for PRIME
     n = 0
@@ -71,3 +72,29 @@ def bdd_prime():
 				    f = create_bool_express(i, j)
 				    n = 1
     return expr2bdd(f)
+
+# 3.2 RR
+
+def RR (bdd1, bdd2):
+    # it takes two bdd and returns the composition 
+    x = bddvars('x', 5)
+    y = bddvars('y', 5)
+    z = bddvars('z', 5)
+    for i in range(0,4):
+        bdd1 = bdd1.compose({x[i] : z[i]}) # compose(mapping): returns a bool func after substituting a subset
+        bdd2 = bdd2.compose({z[i] : y[i]})
+    bdd = bdd1 & bdd2
+    return bdd.smoothing(z)
+
+# 3.3 RR2*
+
+def RRstar(rr):
+    pass
+
+def main():
+    new_bdd = bdd()
+    prime = bdd_prime()
+    even = bdd_even()
+
+    x = bddvars('x', 5)
+    y = bddvars('y', 5)
