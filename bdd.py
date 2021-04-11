@@ -90,17 +90,24 @@ def RR (bdd1, bdd2):
 
 def RRstar(rr):
     # used the algorithm that was given in class
-    temp = rr # H = R
+    H = rr # H = R
     while True:
-        r = temp # H' = H
-        temp = r | RR(rr, r) # H = H' v (H' o R)
-        if temp is r: #until H = H'
-            return temp # return H
+        r = H # H' = H
+        H = r | RR(rr, r) # H = H' v (H' o R)
+        if H is r: #until H = H'
+            return H # return H
 
 def main():
-    new_bdd = bdd()
-    prime = bdd_prime()
-    even = bdd_even()
-
     x = bddvars('x', 5)
     y = bddvars('y', 5)
+
+    bdd = bdd()
+    prime = bdd_prime()
+    even = bdd_even()
+    RR = RRstar(bdd)
+    RR_prime = RRstar(prime)
+    RR_even = RRstar(even)
+
+    test1 = RR.smoothing(x).smoothing(y)
+    test2 = RR_prime.smoothing(x).smoothing(y)
+    test3 = RR_even.smoothing(x).smoothing(y)
