@@ -1,6 +1,11 @@
 from pyeda.boolalg.boolfunc import var
 from pyeda.inter import *
 from functools import reduce
+from math import sqrt
+from itertools import count, islice
+
+def is_prime(n):
+    return n>2 and all( n% i for i in islice(count(2), int(sqrt(n)-1)))
 
 
 def create_node(num):
@@ -34,6 +39,32 @@ def bdd():
     for i in range(0, 32): # 32 nodes
 	    for j in range(0, 32):
 		    if (i + 3) % 32 == j % 32 or (i + 8) % 32 == j % 32:
+			    if n != 0:
+				    f = create_bool_express(i, j) | f # | OR
+			    else: 
+				    f = create_bool_express(i, j)
+				    n = 1
+    return expr2bdd(f)
+
+def bdd_even():
+    # creating a bdd for EVEN
+    n = 0
+    for i in range(0, 32):
+	    for j in range(0, 32):
+		    if (j % 2) == 0: # checking y1....y5 if even
+			    if n != 0:
+				    f = create_bool_express(i, j) | f # | OR
+			    else: 
+				    f = create_bool_express(i, j)
+				    n = 1
+    return expr2bdd(f)
+
+def bdd_prime():
+    # creating a bdd for PRIME
+    n = 0
+    for i in range(0, 32):
+	    for j in range(0, 32):
+		    if is_prime(i): # checking i1...i5 if prime
 			    if n != 0:
 				    f = create_bool_express(i, j) | f # | OR
 			    else: 
