@@ -38,11 +38,13 @@ def bdd():
 	    for j in range(0, 32):
 		    if (i + 3) % 32 == j % 32 or (i + 8) % 32 == j % 32:
 			    if n != 0:
-				    f = create_bool_express(i, j) | f # | OR
+				    f = create_edge(i, j) | f # | OR
 			    else: 
-				    f = create_bool_express(i, j)
+				    f = create_edge(i, j)
 				    n = 1
     return expr2bdd(f)
+
+bdd()
 
 def bdd_even():
     # creating a bdd for EVEN
