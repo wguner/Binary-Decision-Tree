@@ -89,7 +89,13 @@ def RR (bdd1, bdd2):
 # 3.3 RR2*
 
 def RRstar(rr):
-    pass
+    # used the algorithm that was given in class
+    temp = rr # H = R
+    while True:
+        r = temp # H' = H
+        temp = r | RR(rr, r) # H = H' v (H' o R)
+        if temp is r: #until H = H'
+            return temp # return H
 
 def main():
     new_bdd = bdd()
