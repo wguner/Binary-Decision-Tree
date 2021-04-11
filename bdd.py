@@ -23,7 +23,20 @@ def create_edge(i, j):
     # logic_not(x1) logic_and logic(x2)....
 
 def create_bool_express(name, inputArr):
-    # name : x, y, z and inpurArr is an array of 1 and 0s
+    # name : x, y, z and inpurArr: an array of 1 and 0s
     logic_exp = bddvars(name, 5) 
     logic_exp = [var if n else ~var for var, n in zip(logic_exp, inputArr)]# var return a unique var instance
-    return reduce(lambda x, y: x & y, logic_exp)
+    return reduce(lambda x, y: x & y, logic_exp) # returns expression not diagram
+
+def bdd():
+    # creating a bdd tree to match the requirements given in the assignment
+    n = 0
+    for i in range(0, 32): # 32 nodes
+	    for j in range(0, 32):
+		    if (i + 3) % 32 == j % 32 or (i + 8) % 32 == j % 32:
+			    if n != 0:
+				    f = create_bool_express(i, j) | f # | OR
+			    else: 
+				    f = create_bool_express(i, j)
+				    n = 1
+    return expr2bdd(f)
