@@ -82,7 +82,7 @@ def RR (bdd1, bdd2):
     x = bddvars('x', 5)
     y = bddvars('y', 5)
     z = bddvars('z', 5)
-    for i in range(0,4):
+    for i in range(0,5): #since it is x[0] & x[2]...x[4] for unsg bit rep. 
         bdd1 = bdd1.compose({x[i] : z[i]}) # compose(mapping): returns a bool func after substituting a subset
         bdd2 = bdd2.compose({z[i] : y[i]})
     bdd = bdd1 & bdd2
