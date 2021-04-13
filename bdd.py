@@ -44,7 +44,6 @@ def bdd():
 				    n = 1
     return expr2bdd(f)
 
-bdd()
 
 def bdd_even():
     # creating a bdd for EVEN
@@ -53,9 +52,9 @@ def bdd_even():
 	    for j in range(0, 32):
 		    if (j % 2) == 0: # checking y1....y5 if even
 			    if n != 0:
-				    f = create_bool_express(i, j) | f # | OR
+				    f = create_edge(i, j) | f # | OR
 			    else: 
-				    f = create_bool_express(i, j)
+				    f = create_edge(i, j)
 				    n = 1
     return expr2bdd(f)
 
@@ -69,9 +68,9 @@ def bdd_prime():
 	    for j in range(0, 32):
 		    if is_prime(i): # checking i1...i5 if prime
 			    if n != 0:
-				    f = create_bool_express(i, j) | f # | OR
+				    f = create_edge(i, j) | f # | OR
 			    else: 
-				    f = create_bool_express(i, j)
+				    f = create_edge(i, j)
 				    n = 1
     return expr2bdd(f)
 
@@ -103,10 +102,10 @@ def main():
     x = bddvars('x', 5)
     y = bddvars('y', 5)
 
-    bdd = bdd()
+    bdd1 = bdd()
     prime = bdd_prime()
     even = bdd_even()
-    RR = RRstar(bdd)
+    RR = RRstar(bdd1)
     RR_prime = RRstar(prime)
     RR_even = RRstar(even)
 
