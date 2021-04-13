@@ -113,3 +113,6 @@ def main():
     test1 = RR.smoothing(x).smoothing(y)
     test2 = RR_prime.smoothing(x).smoothing(y)
     test3 = RR_even.smoothing(x).smoothing(y)
+
+if __name__ == "__main__":
+    main()
