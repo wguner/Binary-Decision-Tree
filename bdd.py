@@ -112,7 +112,7 @@ def main():
     RR_prime = RRstar(prime)
     RR_even = RRstar(even)
     # 3.5?
-    test1 = RR.smoothing(x).smoothing(y)
+    test1 = RR.smoothing(x).smoothing(y) #is_one()
     test2 = RR_prime.smoothing(x).smoothing(y)
     test3 = RR_even.smoothing(x).smoothing(y)
     test1 = test1.equivalent(True) # test1 before returns the existential quantification operator and we see if it is true here
