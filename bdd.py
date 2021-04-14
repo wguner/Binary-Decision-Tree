@@ -1,3 +1,6 @@
+# Setenay Guner
+# 11543877
+
 from pyeda.boolalg.boolfunc import var
 from pyeda.inter import *
 from functools import reduce
@@ -101,17 +104,20 @@ def RRstar(rr):
 def main():
     x = bddvars('x', 5)
     y = bddvars('y', 5)
-
+    # 3.4
     bdd1 = bdd()
     prime = bdd_prime()
     even = bdd_even()
     RR = RRstar(bdd1)
     RR_prime = RRstar(prime)
     RR_even = RRstar(even)
-
+    # 3.5?
     test1 = RR.smoothing(x).smoothing(y)
     test2 = RR_prime.smoothing(x).smoothing(y)
     test3 = RR_even.smoothing(x).smoothing(y)
+    test1 = test1.equivalent(True) # test1 before returns the existential quantification operator and we see if it is true here
+    test2 = test2.equivalent(True)
+    test3 = test3.equivalent(True)
 
 if __name__ == "__main__":
     main()
