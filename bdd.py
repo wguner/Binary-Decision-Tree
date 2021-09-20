@@ -1,6 +1,3 @@
-# Setenay Guner
-# 11543877
-
 from pyeda.boolalg.boolfunc import var
 from pyeda.inter import *
 from functools import reduce
